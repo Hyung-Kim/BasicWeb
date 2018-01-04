@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  XML의 맵퍼는 다음의 DTD를 추가해주어야 한다. -->
+<!DOCTYPE mapper
+	PUBLIC "-//myabtis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace를 이용해서 java 클래스에서 접근할 수 있다. 중요함. -->
+<mapper namespace="com.taehyung.mapper.BoardMapper">
+	<!--  CRUD 생성 -->
+	<insert id="create">
+		insert into tbl_board(title, content, writer) VALUES(#{title}, #{content}, #{writer})
+	</insert>
+	
+	<select id="read" resultType="BoardVO">
+		select bno, title, content, writer, regdate, viewcnt from tbl_board where bno = #{bno}
+	</select>
+	
+	<update id="update">
+		update tbl_board set title=#{title}, content=#{content} where bno=#{bno}
+	</update>
+	
+	<delete id="delete">
+		delete from tbl_board where bno=#{bno}
+	</delete>
+	
+	<select id="listAll" resultType="BoardVO">
+	<![CDATA[
+		select bno, title, content, writer, regdate, viewcnt from tbl_board where bno > 0 order by bno desc, regdate desc
+	]]>
+	</select>
+</mapper>
